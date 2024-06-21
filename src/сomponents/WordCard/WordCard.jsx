@@ -1,3 +1,5 @@
+import "./WordCard.scss";
+
 export default function WordCard({ word, transcription, translation, theme }) {
   return (
     <div className="word-card">

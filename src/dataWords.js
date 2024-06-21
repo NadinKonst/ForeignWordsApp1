@@ -1,0 +1,42 @@
+export const words = [
+  {
+    id: "16396",
+    english: "basket",
+    transcription: "[ˈbɑːskɪt]",
+    russian: "корзина",
+    tags: "",
+    tags_json: '[""]',
+  },
+  {
+    id: "16397",
+    english: "hello",
+    transcription: "[həˈləʊ]",
+    russian: "привет",
+    tags: "",
+    tags_json: '[""]',
+  },
+  {
+    id: "16398",
+    english: "travel",
+    transcription: "[ˈtræv(ə)l]",
+    russian: "путешествие",
+    tags: "",
+    tags_json: '[""]',
+  },
+  {
+    id: "16400",
+    english: "basket",
+    transcription: "[ˈbɑːskɪt]",
+    russian: "корзина",
+    tags: "",
+    tags_json: '[""]',
+  },
+  {
+    id: "16401",
+    english: "basket",
+    transcription: "[ˈbɑːskɪt]",
+    russian: "корзина",
+    tags: "general",
+    tags_json: '["general"]',
+  },
+];
