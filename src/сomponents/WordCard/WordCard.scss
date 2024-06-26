@@ -21,4 +21,20 @@
     font-size: 20px;
     line-height: 2;
   }
+  button {
+    cursor: pointer;
+    background-color: #da1f92;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: #e782d6;
+    }
+
+    &:active {
+      background-color: #1c638d;
+    }
+  }
 }
