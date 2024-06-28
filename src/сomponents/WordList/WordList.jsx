@@ -2,20 +2,20 @@ import "./WordList.scss";
 import { useState } from "react";
 
 export default function WordList({ words }) {
-  const [editMode, setEditMode] = useState(false);
-  const [editedWords, setEditedWords] = useState(words); //изменения
+  const [editMode, setEditMode] = useState(false); // режим внесения изменений открытие-закрытие
+  const [editedWords, setEditedWords] = useState(words); //хранение добавленных изменений
 
   const handleEdit = () => {
-    setEditMode(true);
+    setEditMode(true); //обработчик режима редактирования
   };
 
   const handleCancel = () => {
-    setEditMode(false);
-    setEditedWords(words); // сброс
+    setEditMode(false); //обработчик отмены внесения изменений
+    setEditedWords(words); // и сброса добавленных изменений
   };
 
   const handleInputChange = (index, fieldName, value) => {
-    const newEditedWords = [...editedWords];
+    const newEditedWords = [...editedWords]; //обновление данных в инпутах
     newEditedWords[index] = {
       ...newEditedWords[index],
       [fieldName]: value,
@@ -24,6 +24,7 @@ export default function WordList({ words }) {
   };
 
   const handleSave = () => {
+    // режим сохранения изменений
     // console.log("Сохранение", editedWords);
     setEditMode(false);
   };
