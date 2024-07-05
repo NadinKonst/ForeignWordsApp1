@@ -1,8 +1,8 @@
 import "./App.scss";
 import Header from "../сomponents/Header/Header";
 import Footer from "../сomponents/Footer/Footer";
-import WordCard from "../сomponents/WordCard/WordCard";
 import WordList from "../сomponents/WordList/WordList";
+import WordCardSlider from "../сomponents/WordCardSlider/WordCardSlider";
 import { words } from "../dataWords";
 
 export default function App() {
@@ -11,12 +11,7 @@ export default function App() {
       <div className="header-content">
         <Header />
       </div>
-      <WordCard
-        word="hello"
-        transcription="[həˈləʊ]"
-        translation="привет"
-        theme="приветствие"
-      />
+      <WordCardSlider words={words} />
       <WordList words={words} />
       <Footer />
     </div>

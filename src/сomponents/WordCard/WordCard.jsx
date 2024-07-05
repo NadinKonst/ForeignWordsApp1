@@ -16,7 +16,7 @@ export default function WordCard({ word, transcription, translation, theme }) {
       {showTranslation ? (
         <div className="word-translation">Translation: {translation}</div>
       ) : (
-        <button onClick={handleShowTranslation}>Показать перевод</button>
+        <button onClick={handleShowTranslation}>Show traslation</button>
       )}
     </div>
   );

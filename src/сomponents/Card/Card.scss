@@ -1,0 +1,33 @@
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+
+  .input-word {
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: #2980b9;
+    }
+
+    &:active {
+      background-color: #1c638d;
+    }
+  }
+}

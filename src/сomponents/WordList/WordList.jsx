@@ -2,31 +2,37 @@ import "./WordList.scss";
 import { useState } from "react";
 
 export default function WordList({ words }) {
-  const [editMode, setEditMode] = useState(false); // режим внесения изменений открытие-закрытие
-  const [editedWords, setEditedWords] = useState(words); //хранение добавленных изменений
+  const [editMode, setEditMode] = useState(false);
+  const [editedWords, setEditedWords] = useState(
+    words.map((word) => ({ ...word }))
+  ); // Состояние для хранения измененных значений
+  const [editedIndex, setEditedIndex] = useState(null); // Состояние для хранения индекса редактируемого слова
 
-  const handleEdit = () => {
-    setEditMode(true); //обработчик режима редактирования
+  const handleEditWord = (index) => {
+    setEditedIndex(index);
+    setEditMode(true);
   };
 
   const handleCancel = () => {
-    setEditMode(false); //обработчик отмены внесения изменений
-    setEditedWords(words); // и сброса добавленных изменений
+    setEditMode(false);
+    setEditedWords(words.map((word) => ({ ...word }))); // Возвращаем поля к изначальным значениям
+    setEditedIndex(null);
   };
 
-  const handleInputChange = (index, fieldName, value) => {
-    const newEditedWords = [...editedWords]; //обновление данных в инпутах
-    newEditedWords[index] = {
-      ...newEditedWords[index],
+  const handleInputChange = (fieldName, value) => {
+    const newEditedWords = [...editedWords];
+    newEditedWords[editedIndex] = {
+      ...newEditedWords[editedIndex],
       [fieldName]: value,
     };
     setEditedWords(newEditedWords);
   };
 
   const handleSave = () => {
-    // режим сохранения изменений
-    // console.log("Сохранение", editedWords);
+    // Обработка сохранения изменений
+    console.log("Сохранение изменений", editedWords);
     setEditMode(false);
+    setEditedIndex(null);
   };
 
   return (
@@ -43,27 +49,25 @@ export default function WordList({ words }) {
         {editedWords.map((word, index) => (
           <tr key={index}>
             <td>
-              {editMode ? (
+              {editMode && editedIndex === index ? (
                 <input
                   type="text"
                   value={word.english}
                   className="input-word"
-                  onChange={(e) =>
-                    handleInputChange(index, "english", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("english", e.target.value)}
                 />
               ) : (
                 word.english
               )}
             </td>
             <td>
-              {editMode ? (
+              {editMode && editedIndex === index ? (
                 <input
                   type="text"
                   value={word.transcription}
                   className="input-word"
                   onChange={(e) =>
-                    handleInputChange(index, "transcription", e.target.value)
+                    handleInputChange("transcription", e.target.value)
                   }
                 />
               ) : (
@@ -71,28 +75,26 @@ export default function WordList({ words }) {
               )}
             </td>
             <td>
-              {editMode ? (
+              {editMode && editedIndex === index ? (
                 <input
                   type="text"
                   value={word.russian}
                   className="input-word"
-                  onChange={(e) =>
-                    handleInputChange(index, "russian", e.target.value)
-                  }
+                  onChange={(e) => handleInputChange("russian", e.target.value)}
                 />
               ) : (
                 word.russian
               )}
             </td>
             <td className="actions">
-              {editMode ? (
+              {editMode && editedIndex === index ? (
                 <>
                   <button onClick={handleSave}>Save</button>
                   <button onClick={handleCancel}>Cancel</button>
                 </>
               ) : (
                 <>
-                  <button onClick={handleEdit}>Edit</button>
+                  <button onClick={() => handleEditWord(index)}>Edit</button>
                   <button>Delete</button>
                 </>
               )}
@@ -103,3 +105,25 @@ export default function WordList({ words }) {
     </table>
   );
 }
+
+// import "./WordList.scss";
+// import Card from "../Card/Card";
+// export default function WordList({ words }) {
+// return (
+// <table className="table">
+// <thead>
+// <tr>
+// <th>English</th>
+// <th>Transcription</th>
+// <th>Russian</th>
+// <th>Actions</th>
+// </tr>
+// </thead>
+// <tbody>
+// {words.map((word, index) => (
+// <Card {...word} key={index}/> // Экспортируем объект со словами в компонент Card и указываем ключ к нему
+// ))}
+// </tbody>
+// </table>
+// );
+// }
