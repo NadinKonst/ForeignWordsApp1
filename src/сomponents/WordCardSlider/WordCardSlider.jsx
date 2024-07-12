@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, use } from "react";
 import WordCard from "../WordCard/WordCard";
 import "./WordCardSlider.scss";
 
@@ -30,9 +30,11 @@ export default function WordCardSlider({ words }) {
   // получаем текущее слово на основе текущего индекса и прописываем сценарий на случай отсутствия данных
   const currentWord = words ? words[currentWordIndex] : "oops, no data";
 
+
   return (
     <div className="word-card-slider">
       <WordCard
+        id ={currentWord.id}
         word={currentWord.english}
         transcription={currentWord.transcription}
         translation={currentWord.russian}
