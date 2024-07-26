@@ -3,10 +3,11 @@ import { useState } from "react";
 
 export default function WordList({ words }) {
   const [editMode, setEditMode] = useState(false);
+
   const [editedWords, setEditedWords] = useState(
     words.map((word) => ({ ...word }))
-  ); // Состояние для хранения измененных значений
-  const [editedIndex, setEditedIndex] = useState(null); // Состояние для хранения индекса редактируемого слова
+  ); 
+  const [editedIndex, setEditedIndex] = useState(null); 
 
   const handleEditWord = (index) => {
     setEditedIndex(index);
@@ -15,7 +16,7 @@ export default function WordList({ words }) {
 
   const handleCancel = () => {
     setEditMode(false);
-    setEditedWords(words.map((word) => ({ ...word }))); // Возвращаем поля к изначальным значениям
+    setEditedWords(words.map((word) => ({ ...word }))); 
     setEditedIndex(null);
   };
 
@@ -29,8 +30,6 @@ export default function WordList({ words }) {
   };
 
   const handleSave = () => {
-    // Обработка сохранения изменений
-    console.log("Сохранение изменений", editedWords);
     setEditMode(false);
     setEditedIndex(null);
   };

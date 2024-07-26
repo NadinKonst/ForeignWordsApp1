@@ -9,9 +9,9 @@
   margin-bottom: 20px;
   margin-top: 20px;
 
-.id {
-  display: none;
-}
+  .id {
+    display: none;
+  }
 
   .word-title {
     font-size: 24px;
@@ -32,13 +32,19 @@
     border: none;
     padding: 6px 12px;
     border-radius: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
 
     &:hover {
-      background-color: #e782d6;
+      background-color: #e267ce;
     }
 
     &:active {
       background-color: #1c638d;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 20px rgba(128, 0, 6, 0.5);
     }
   }
 }
