@@ -1,13 +1,16 @@
 import "./WordList.scss";
 import { useState } from "react";
+import { emptyInput } from "./utils";
 
 export default function WordList({ words }) {
   const [editMode, setEditMode] = useState(false);
 
   const [editedWords, setEditedWords] = useState(
     words.map((word) => ({ ...word }))
-  ); 
-  const [editedIndex, setEditedIndex] = useState(null); 
+  );
+  const [editedIndex, setEditedIndex] = useState(null);
+
+  const [emptyField, setEmptyField] = useState(false);
 
   const handleEditWord = (index) => {
     setEditedIndex(index);
@@ -16,8 +19,9 @@ export default function WordList({ words }) {
 
   const handleCancel = () => {
     setEditMode(false);
-    setEditedWords(words.map((word) => ({ ...word }))); 
+    setEditedWords(words.map((word) => ({ ...word })));
     setEditedIndex(null);
+    setEmptyField("");
   };
 
   const handleInputChange = (fieldName, value) => {
@@ -26,10 +30,36 @@ export default function WordList({ words }) {
       ...newEditedWords[editedIndex],
       [fieldName]: value,
     };
+
     setEditedWords(newEditedWords);
+
+    const currentWord = newEditedWords[editedIndex];
+    const hasEmptyFields =
+      !currentWord.english ||
+      !currentWord.transcription ||
+      !currentWord.russian;
+
+    setEmptyField(hasEmptyFields);
+
+    // if (hasEmptyFields) {
+    //   alert("enter smth");
+    // }
   };
 
   const handleSave = () => {
+    const currentWord = editedWords[editedIndex];
+
+    // if (
+    //   !currentWord.english ||
+    //   !currentWord.transcription ||
+    //   !currentWord.russian
+    // ) {
+    //   alert("Fill in all the fields.");
+    //   return;
+    // }
+
+    console.log("Saved data:", currentWord);
+
     setEditMode(false);
     setEditedIndex(null);
   };
@@ -52,7 +82,12 @@ export default function WordList({ words }) {
                 <input
                   type="text"
                   value={word.english}
-                  className="input-word"
+                  className={`input-word ${emptyInput(
+                    editedWords,
+                    editedIndex,
+                    editMode,
+                    "english"
+                  )}`}
                   onChange={(e) => handleInputChange("english", e.target.value)}
                 />
               ) : (
@@ -64,7 +99,12 @@ export default function WordList({ words }) {
                 <input
                   type="text"
                   value={word.transcription}
-                  className="input-word"
+                  className={`input-word ${emptyInput(
+                    editedWords,
+                    editedIndex,
+                    editMode,
+                    "transcription"
+                  )}`}
                   onChange={(e) =>
                     handleInputChange("transcription", e.target.value)
                   }
@@ -78,7 +118,12 @@ export default function WordList({ words }) {
                 <input
                   type="text"
                   value={word.russian}
-                  className="input-word"
+                  className={`input-word ${emptyInput(
+                    editedWords,
+                    editedIndex,
+                    editMode,
+                    "russian"
+                  )}`}
                   onChange={(e) => handleInputChange("russian", e.target.value)}
                 />
               ) : (
@@ -88,7 +133,9 @@ export default function WordList({ words }) {
             <td className="actions">
               {editMode && editedIndex === index ? (
                 <>
-                  <button onClick={handleSave}>Save</button>
+                  <button onClick={handleSave} disabled={emptyField}>
+                    Save
+                  </button>
                   <button onClick={handleCancel}>Cancel</button>
                 </>
               ) : (
@@ -104,25 +151,3 @@ export default function WordList({ words }) {
     </table>
   );
 }
-
-// import "./WordList.scss";
-// import Card from "../Card/Card";
-// export default function WordList({ words }) {
-// return (
-// <table className="table">
-// <thead>
-// <tr>
-// <th>English</th>
-// <th>Transcription</th>
-// <th>Russian</th>
-// <th>Actions</th>
-// </tr>
-// </thead>
-// <tbody>
-// {words.map((word, index) => (
-// <Card {...word} key={index}/> // Экспортируем объект со словами в компонент Card и указываем ключ к нему
-// ))}
-// </tbody>
-// </table>
-// );
-// }

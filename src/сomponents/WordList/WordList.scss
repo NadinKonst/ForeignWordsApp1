@@ -17,6 +17,10 @@
     .input-word {
       font-family: "Montserrat", sans-serif;
       width: 100%;
+
+      &.error {
+        border: 2px solid rgb(236, 30, 30);
+      }
     }
   }
 

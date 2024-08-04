@@ -36,14 +36,18 @@ export default function WordCardSlider({ words }) {
   return (
     <div className="word-card-slider">
       <h1>Learned words: {learnedWordsCount}</h1>
-      <WordCard
-        id={currentWord.id}
-        word={currentWord.english}
-        transcription={currentWord.transcription}
-        translation={currentWord.russian}
-        theme={currentWord.tags}
-        onWordLearned={handleWordLearned}
-      />
+      {currentWord ? (
+        <WordCard
+          id={currentWord.id}
+          word={currentWord.english}
+          transcription={currentWord.transcription}
+          translation={currentWord.russian}
+          theme={currentWord.tags}
+          onWordLearned={handleWordLearned}
+        />
+      ) : (
+        <p>Oops, no data</p>
+      )}
       <div className="navigation-buttons">
         <button onClick={handlePrevWord}>← Prev Word</button>
         <button onClick={handleNextWord}>Next Word →</button>

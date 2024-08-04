@@ -45,3 +45,4 @@ const Card = ({ english, transcription, russian }) => {
   );
 };
 export default Card;
+
