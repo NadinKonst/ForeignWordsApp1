@@ -81,7 +81,7 @@ const WordRow = ({
             <button type="button" onClick={() => handleEditWord(index)}>
               Edit
             </button>
-            <button>Delete</button>
+            <button type="button">Delete</button>
           </>
         )}
       </td>
