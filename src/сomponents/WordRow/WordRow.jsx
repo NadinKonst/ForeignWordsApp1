@@ -1,25 +1,56 @@
 import "./WordRow.scss";
+import { useState } from "react";
+import { validateFields } from "./utils";
 
-const WordRow = ({
-  word,
-  index,
-  editMode,
-  editedIndex,
-  handleInputChange,
-  handleSave,
-  handleCancel,
-  handleEditWord,
-  errors,
-}) => {
+const WordRow = ({ word, index, onSave }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [editedWord, setEditedWord] = useState({ ...word });
+  const [errors, setErrors] = useState({});
+
+  const handleEditWord = () => {
+    setEditMode(true);
+    setErrors({});
+  };
+
+  const handleCancel = () => {
+    setEditMode(false);
+    setEditedWord({ ...word });
+    setErrors({});
+  };
+
+  const handleInputChange = (fieldName, value) => {
+    setEditedWord((prevEditedWord) => ({
+      ...prevEditedWord,
+      [fieldName]: value,
+    }));
+    setErrors({});
+  };
+
+  const handleSave = () => {
+    const newErrors = validateFields(editedWord);
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      alert("Error: Unable to save data.");
+      return;
+    }
+
+    console.log("Saved data:", editedWord);
+
+    onSave(index, editedWord);
+    setEditMode(false);
+    setErrors({});
+  };
+
   return (
     <tr key={index}>
       <td>
-        {editMode && editedIndex === index ? (
+        {editMode ? (
           <>
             <input
               type="text"
-              value={word.english}
-              className={'input-word ${errors.english ? "error" : ""}'}
+              value={editedWord.english}
+              className={`input-word ${errors.english ? "error" : ""}`}
               onChange={(e) => handleInputChange("english", e.target.value)}
             />
             {errors.english && (
@@ -31,12 +62,12 @@ const WordRow = ({
         )}
       </td>
       <td>
-        {editMode && editedIndex === index ? (
+        {editMode ? (
           <>
             <input
               type="text"
-              value={word.transcription}
-              className={'input-word ${errors.transcription ? "error" : ""}'}
+              value={editedWord.transcription}
+              className={`input-word ${errors.transcription ? "error" : ""}`}
               onChange={(e) =>
                 handleInputChange("transcription", e.target.value)
               }
@@ -50,12 +81,12 @@ const WordRow = ({
         )}
       </td>
       <td>
-        {editMode && editedIndex === index ? (
+        {editMode ? (
           <>
             <input
               type="text"
-              value={word.russian}
-              className={'input-word ${errors.russian ? "error" : ""}'}
+              value={editedWord.russian}
+              className={`input-word ${errors.russian ? "error" : ""}`}
               onChange={(e) => handleInputChange("russian", e.target.value)}
             />
             {errors.russian && (
@@ -67,7 +98,7 @@ const WordRow = ({
         )}
       </td>
       <td className="actions">
-        {editMode && editedIndex === index ? (
+        {editMode ? (
           <>
             <button type="button" onClick={handleSave}>
               Save
@@ -78,7 +109,7 @@ const WordRow = ({
           </>
         ) : (
           <>
-            <button type="button" onClick={() => handleEditWord(index)}>
+            <button type="button" onClick={handleEditWord}>
               Edit
             </button>
             <button type="button">Delete</button>
