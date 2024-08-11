@@ -12,9 +12,7 @@ export default function WordProvider({ children }) {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        "http://itgirlschool.justmakeit.ru/api/words"
-      );
+      const response = await fetch(`/api/words`);
       if (!response.ok) {
         throw new Error("Error loading data");
       }
@@ -30,14 +28,11 @@ export default function WordProvider({ children }) {
   // добавление нового слова
   const addWord = async (newWord) => {
     try {
-      const response = await fetch(
-        "http://itgirlschool.justmakeit.ru/api/words/add",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-          body: JSON.stringify(newWord),
-        }
-      );
+      const response = await fetch(`/api/words/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify(newWord),
+      });
       if (!response.ok) {
         throw new Error("Error adding word");
       }
@@ -51,14 +46,11 @@ export default function WordProvider({ children }) {
   // обновление слова
   const updateWord = async (id, updatedWord) => {
     try {
-      const response = await fetch(
-        `http://itgirlschool.justmakeit.ru/api/words/${id}/update`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-          body: JSON.stringify({ ...updatedWord, tags: "", tags_json: "" }),
-        }
-      );
+      const response = await fetch(`/api/words/${id}/update`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify({ ...updatedWord, tags: "", tags_json: "" }),
+      });
       if (!response.ok) {
         throw new Error("Error updating word");
       }
@@ -74,13 +66,10 @@ export default function WordProvider({ children }) {
   // удаление слова
   const deleteWord = async (id) => {
     try {
-      const response = await fetch(
-        "http://itgirlschool.justmakeit.ru/api/words/${id}/delete",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-        }
-      );
+      const response = await fetch(`/api/words/${id}/delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+      });
       if (!response.ok) {
         throw new Error("Error deleting word");
       }
