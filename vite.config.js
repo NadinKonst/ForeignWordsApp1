@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "<http://itgirlschool.justmakeit.ru>",
+        target: "http://itgirlschool.justmakeit.ru",
         changeOrigin: true,
       },
     },
