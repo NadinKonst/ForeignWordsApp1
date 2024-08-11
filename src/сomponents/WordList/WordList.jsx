@@ -2,6 +2,7 @@ import "./WordList.scss";
 import { useContext } from "react";
 import WordRow from "../WordRow/WordRow";
 import { WordContext } from "../MyContext/WordContext";
+import AddWordForm from "../AddWordForm/AddWordForm";
 
 export default function WordList() {
   const { words, loading, error, updateWord, deleteWord } =
@@ -20,25 +21,28 @@ export default function WordList() {
   }
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>English</th>
-          <th>Transcription</th>
-          <th>Russian</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {words.map((word) => (
-          <WordRow
-            key={word.id}
-            word={word}
-            onSave={(updatedWord) => updateWord(word.id, updatedWord)}
-            onDelete={() => deleteWord(word.id)}
-          />
-        ))}
-      </tbody>
-    </table>
+    <>
+      <AddWordForm />
+      <table className="table">
+        <thead>
+          <tr>
+            <th>English</th>
+            <th>Transcription</th>
+            <th>Russian</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {words.map((word) => (
+            <WordRow
+              key={word.id}
+              word={word}
+              onSave={(updatedWord) => updateWord(word.id, updatedWord)}
+              onDelete={() => deleteWord(word.id)}
+            />
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 }
