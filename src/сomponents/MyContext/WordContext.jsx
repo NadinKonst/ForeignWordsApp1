@@ -6,9 +6,8 @@ export default function WordProvider({ children }) {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedWord, setSelectedWord] = useState(null); // Состояние для хранения выбранного слова
 
-  // Функция для получения списка слов
+  //  получения списка слов
   const fetchWords = async () => {
     setLoading(true);
     setError(null);
@@ -17,7 +16,7 @@ export default function WordProvider({ children }) {
         "http://itgirlschool.justmakeit.ru/api/words"
       );
       if (!response.ok) {
-        throw new Error("Ошибка при загрузке данных");
+        throw new Error("Error loading data");
       }
       const data = await response.json();
       setWords(data);
@@ -28,7 +27,7 @@ export default function WordProvider({ children }) {
     }
   };
 
-  // Функция для добавления нового слова
+  // добавление нового слова
   const addWord = async (newWord) => {
     try {
       const response = await fetch(
@@ -40,7 +39,7 @@ export default function WordProvider({ children }) {
         }
       );
       if (!response.ok) {
-        throw new Error("Ошибка при добавлении слова");
+        throw new Error("Error adding word");
       }
       const addedWord = await response.json();
       setWords((prevWords) => [...prevWords, addedWord]);
@@ -49,11 +48,11 @@ export default function WordProvider({ children }) {
     }
   };
 
-  // Функция для обновления слова
+  // обновление слова
   const updateWord = async (id, updatedWord) => {
     try {
       const response = await fetch(
-        "http://itgirlschool.justmakeit.ru/api/words/${id}/update",
+        `http://itgirlschool.justmakeit.ru/api/words/${id}/update`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json; charset=utf-8" },
@@ -61,7 +60,7 @@ export default function WordProvider({ children }) {
         }
       );
       if (!response.ok) {
-        throw new Error("Ошибка при обновлении слова");
+        throw new Error("Error updating word");
       }
       const updatedData = await response.json();
       setWords((prevWords) =>
@@ -72,7 +71,7 @@ export default function WordProvider({ children }) {
     }
   };
 
-  // Функция для удаления слова
+  // удаление слова
   const deleteWord = async (id) => {
     try {
       const response = await fetch(
@@ -83,7 +82,7 @@ export default function WordProvider({ children }) {
         }
       );
       if (!response.ok) {
-        throw new Error("Ошибка при удалении слова");
+        throw new Error("Error deleting word");
       }
       setWords((prevWords) => prevWords.filter((word) => word.id !== id));
     } catch (error) {
@@ -92,7 +91,7 @@ export default function WordProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchWords(); // Загружаем слова при монтировании
+    fetchWords();
   }, []);
 
   return (
