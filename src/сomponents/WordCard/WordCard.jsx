@@ -1,10 +1,28 @@
-import "./WordCard.scss";
-import { useState, useEffect, useRef, forwardRef } from "react";
 
-const WordCard = forwardRef(
-  ({ id, word, transcription, translation, theme, onWordLearned }, ref) => {
+import "./WordCard.scss";
+import { useState, useEffect, useRef, forwardRef, useContext } from "react";
+import { observer } from "mobx-react-lite"; // Импортируем observer
+import { WordContext } from "../../context/WordProvider";
+
+const WordCard = observer(
+  forwardRef(({ id, onWordLearned }, ref) => {
+    const { words, loading } = useContext(WordContext); // Используем контекст
+    const wordData = words.find((word) => word.id === String(id)); // Ищем слово по id
+
     const [showTranslation, setShowTranslation] = useState(false);
     const buttonRef = useRef();
+
+    // Если данные загружаются
+    if (loading) {
+      return <div>Loading...</div>; // Индикатор загрузки
+    }
+
+    // Если слово не найдено
+    if (!wordData) {
+      return <div>Word not found!</div>;
+    }
+
+    const { english, transcription, tags } = wordData; // Извлекаем данные о слове
 
     useEffect(() => {
       setShowTranslation(false);
@@ -24,11 +42,13 @@ const WordCard = forwardRef(
     return (
       <div className="word-card">
         <h1 className="id">{id}</h1>
-        <h2 className="word-title">{word}</h2>
+        <h2 className="word-title">{english}</h2>
         <div className="word-transcription">Transcription: {transcription}</div>
-        <div className="word-theme">Theme: {theme}</div>
+        <div className="word-theme">Theme: {tags}</div>
         {showTranslation ? (
-          <div className="word-translation">Translation: {translation}</div>
+          <div className="word-translation">
+            Translation: {wordData.russian}
+          </div>
         ) : (
           <button ref={buttonRef} onClick={handleShowTranslation}>
             Show translation
@@ -36,7 +56,7 @@ const WordCard = forwardRef(
         )}
       </div>
     );
-  }
+  })
 );
 
 export default WordCard;

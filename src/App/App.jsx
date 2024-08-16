@@ -3,13 +3,14 @@ import Header from "../сomponents/Header/Header";
 import Footer from "../сomponents/Footer/Footer";
 import WordList from "../сomponents/WordList/WordList";
 import WordCardSlider from "../сomponents/WordCardSlider/WordCardSlider";
-import { words } from "../dataWords";
 import Menu from "../сomponents/Menu/Menu";
 import Page404 from "../сomponents/Page404/Page404";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Loader from "../сomponents/Loader/Loader";
+import { WordContext } from "../context/WordProvider";
+import { useContext } from "react";
 
 export default function App() {
+  const { words } = useContext(WordContext);
   return (
     <BrowserRouter>
       <div className="wrapper">
@@ -23,7 +24,6 @@ export default function App() {
           <Route path="*" element={<Page404 />} />
         </Routes>
         <Footer />
-        <Loader />
       </div>
     </BrowserRouter>
   );

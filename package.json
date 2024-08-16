@@ -9,6 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "proxy": "http://itgirlschool.justmakeit.ru",
   "dependencies": {
     "mobx": "^6.13.1",
     "mobx-react-lite": "^4.0.7",
