@@ -1,4 +1,4 @@
-import { makeAutoObservable, action } from "mobx";
+import { makeAutoObservable, action, runInAction } from "mobx";
 
 class WordStore {
   words = [];
@@ -18,11 +18,17 @@ class WordStore {
         throw new Error("Error loading data");
       }
       const data = await response.json();
-      this.words = data; // Изменение состояния должно быть внутри действия
+      runInAction(() => {
+        this.words = data;
+      });
     } catch (error) {
-      this.error = error.message;
+      runInAction(() => {
+        this.error = error.message;
+      });
     } finally {
-      this.loading = false;
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   });
 
@@ -37,9 +43,13 @@ class WordStore {
         throw new Error("Error adding word");
       }
       const addedWord = await response.json();
-      this.words.push(addedWord); // Изменение состояния должно быть внутри действия
+      runInAction(() => {
+        this.words.push(addedWord);
+      });
     } catch (error) {
-      this.error = error.message;
+      runInAction(() => {
+        this.error = error.message;
+      });
     }
   });
 
@@ -54,11 +64,15 @@ class WordStore {
         throw new Error("Error updating word");
       }
       const updatedData = await response.json();
-      this.words = this.words.map((word) =>
-        word.id === id ? updatedData : word
-      ); // Изменение состояния должно быть внутри действия
+      runInAction(() => {
+        this.words = this.words.map((word) =>
+          word.id === id ? updatedData : word
+        );
+      });
     } catch (error) {
-      this.error = error.message;
+      runInAction(() => {
+        this.error = error.message;
+      });
     }
   });
 
@@ -71,9 +85,13 @@ class WordStore {
       if (!response.ok) {
         throw new Error("Error deleting word");
       }
-      this.words = this.words.filter((word) => word.id !== id); // Изменение состояния должно быть внутри действия
+      runInAction(() => {
+        this.words = this.words.filter((word) => word.id !== id);
+      });
     } catch (error) {
-      this.error = error.message;
+      runInAction(() => {
+        this.error = error.message;
+      });
     }
   });
 }

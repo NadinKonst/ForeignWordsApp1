@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import WordCard from "../WordCard/WordCard";
 import "./WordCardSlider.scss";
-import { WordContext } from "../../context/WordProvider"; // Импортируем контекст
+import { WordContext } from "../../context/WordProvider";
 import Loader from "../Loader/Loader";
 
 export default function WordCardSlider() {
-  const { words, loading } = useContext(WordContext); // Получаем слова и состояние загрузки
+  const { words, loading } = useContext(WordContext);
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [learnedWordsCount, setLearnedWordsCount] = useState(0);
@@ -15,7 +15,7 @@ export default function WordCardSlider() {
       if (prevIndex < words.length - 1) {
         return prevIndex + 1;
       } else {
-        return 0; // возвращаемся к первому слову
+        return 0;
       }
     });
   };
@@ -25,7 +25,7 @@ export default function WordCardSlider() {
       if (prevIndex > 0) {
         return prevIndex - 1;
       } else {
-        return words.length - 1; // переходим к последнему слову
+        return words.length - 1;
       }
     });
   };
@@ -34,21 +34,18 @@ export default function WordCardSlider() {
     setLearnedWordsCount((prevCount) => prevCount + 1);
   };
 
-  // Проверяем наличие слов и состояние загрузки
   if (loading) {
-    return <Loader />; // Индикатор загрузки
+    return <Loader />;
   }
 
-  const currentWord = words.length > 0 ? words[currentWordIndex] : null; // Текущее слово
+
+  const currentWord = words.length > 0 ? words[currentWordIndex] : null;
 
   return (
     <div className="word-card-slider">
       <h1>Learned words: {learnedWordsCount}</h1>
       {currentWord ? (
-        <WordCard
-          id={currentWord.id} // Передаем только id
-          onWordLearned={handleWordLearned}
-        />
+        <WordCard id={currentWord.id} onWordLearned={handleWordLearned} />
       ) : (
         <p>Oops, no data</p>
       )}

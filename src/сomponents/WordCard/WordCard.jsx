@@ -1,28 +1,25 @@
-
 import "./WordCard.scss";
 import { useState, useEffect, useRef, forwardRef, useContext } from "react";
-import { observer } from "mobx-react-lite"; // Импортируем observer
+import { observer } from "mobx-react-lite";
 import { WordContext } from "../../context/WordProvider";
 
 const WordCard = observer(
   forwardRef(({ id, onWordLearned }, ref) => {
-    const { words, loading } = useContext(WordContext); // Используем контекст
-    const wordData = words.find((word) => word.id === String(id)); // Ищем слово по id
+    const { words, loading } = useContext(WordContext);
+    const wordData = words.find((word) => word.id === String(id));
 
     const [showTranslation, setShowTranslation] = useState(false);
     const buttonRef = useRef();
 
-    // Если данные загружаются
     if (loading) {
-      return <div>Loading...</div>; // Индикатор загрузки
+      return <div>Loading...</div>;
     }
 
-    // Если слово не найдено
     if (!wordData) {
       return <div>Word not found!</div>;
     }
 
-    const { english, transcription, tags } = wordData; // Извлекаем данные о слове
+    const { english, transcription, tags } = wordData;
 
     useEffect(() => {
       setShowTranslation(false);

@@ -11,10 +11,10 @@ const AddWordForm = ({ addWord }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addWord(newWord); // Используем addWord из пропсов
-      setNewWord({ english: "", transcription: "", russian: "" }); // Сбрасываем форму
+      await addWord(newWord);
+      setNewWord({ english: "", transcription: "", russian: "" });
     } catch (error) {
-      console.error("Error adding word:", error); // Логируем ошибку, если она возникла
+      console.error("Error adding word:", error);
     }
   };
 
