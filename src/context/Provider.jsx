@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import wordStore from "../stores/WordStore";
 
-const WordProvider = observer(({ children }) => {
+const Provider = observer(({ children }) => {
   useEffect(() => {
     wordStore.fetchWords();
   }, []);
@@ -13,4 +13,4 @@ const WordProvider = observer(({ children }) => {
 });
 
 export const WordContext = React.createContext();
-export default WordProvider;
+export default Provider;
