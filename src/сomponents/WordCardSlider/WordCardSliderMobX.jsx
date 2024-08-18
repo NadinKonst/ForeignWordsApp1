@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import WordCard from "../WordCard/WordCard";
+import WordCard from "../WordCard/WordCardMobX";
 import "./WordCardSlider.scss";
 import { WordContext } from "../../context/Provider";
 import Loader from "../Loader/Loader";

@@ -1,8 +1,8 @@
 import "./WordList.scss";
 import { observer } from "mobx-react-lite";
 import { useContext } from "react";
-import WordRow from "../WordRow/WordRow";
-import AddWordForm from "../AddWordForm/AddWordForm";
+import WordRow from "../WordRow/WordRowMobX";
+import AddWordForm from "../AddWordForm/AddWordFormMobX";
 import { WordContext } from "../../context/Provider";
 import Loader from "../Loader/Loader";
 
