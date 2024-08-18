@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import WordCard from "../WordCard/WordCard";
 import "./WordCardSlider.scss";
-import { WordContext } from "../../context/WordProvider";
+import { WordContext } from "../../context/Provider";
 import Loader from "../Loader/Loader";
 
 export default function WordCardSlider() {
@@ -37,7 +37,6 @@ export default function WordCardSlider() {
   if (loading) {
     return <Loader />;
   }
-
 
   const currentWord = words.length > 0 ? words[currentWordIndex] : null;
 

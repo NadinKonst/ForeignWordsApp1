@@ -1,7 +1,7 @@
 import "./WordCard.scss";
 import { useState, useEffect, useRef, forwardRef, useContext } from "react";
 import { observer } from "mobx-react-lite";
-import { WordContext } from "../../context/WordProvider";
+import { WordContext } from "../../context/Provider";
 
 const WordCard = observer(
   forwardRef(({ id, onWordLearned }, ref) => {

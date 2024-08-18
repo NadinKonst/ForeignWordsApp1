@@ -6,7 +6,7 @@ import WordCardSlider from "../сomponents/WordCardSlider/WordCardSlider";
 import Menu from "../сomponents/Menu/Menu";
 import Page404 from "../сomponents/Page404/Page404";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { WordContext } from "../context/WordProvider";
+import { WordContext } from "../context/Provider";
 import { useContext } from "react";
 
 export default function App() {

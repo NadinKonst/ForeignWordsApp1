@@ -1,17 +1,16 @@
-
 import "./WordList.scss";
 import { observer } from "mobx-react-lite";
 import { useContext } from "react";
 import WordRow from "../WordRow/WordRow";
 import AddWordForm from "../AddWordForm/AddWordForm";
-import { WordContext } from "../../context/WordProvider";
+import { WordContext } from "../../context/Provider";
 import Loader from "../Loader/Loader";
 
 const WordList = observer(() => {
-  const wordStore = useContext(WordContext); 
+  const wordStore = useContext(WordContext);
 
   const handleSaveWord = async (id, updatedWord) => {
-    await wordStore.updateWord(id, updatedWord); 
+    await wordStore.updateWord(id, updatedWord);
   };
 
   return (
@@ -34,7 +33,7 @@ const WordList = observer(() => {
               key={word.id}
               word={word}
               onSave={handleSaveWord}
-              onDelete={async () => await wordStore.deleteWord(word.id)} 
+              onDelete={async () => await wordStore.deleteWord(word.id)}
             />
           ))}
         </tbody>
